@@ -74,7 +74,7 @@ module.gke.google_container_cluster.ml_cluster: Creating...
   master_auth.0.client_certificate:     "" => "<computed>"
 ```
 
-생후 후 gcp 콘솔에서 확인 가능
+생성 후 gcp 콘솔에서 확인 가능
 
 ![gke-cluster](https://www.arangodb.com/docs/3.4/images/gke-clusters.png)
 
