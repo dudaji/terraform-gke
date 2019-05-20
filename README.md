@@ -78,7 +78,7 @@ module.gke.google_container_cluster.ml_cluster: Creating...
 
 ![gke-cluster](https://www.arangodb.com/docs/3.4/images/gke-clusters.png)
 
-### nvidia driver install Daemonset
+### nvidia driver installer Daemonset
 
 Cluster가 생성된 후에는 nvidia driver installer daemonset을 생성합니다.  
 https://cloud.google.com/kubernetes-engine/docs/how-to/gpus#installing_drivers
