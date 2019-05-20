@@ -282,7 +282,7 @@ NO_SCHEDULE	nvidia.com/gpu=present
 실제로는 gpu 1개를 사용하더라도 node에는 gpu가 4개 있으므로 3개는 놀게 됩니다.
 
 그래서 distributed learning 보다는 더 좋은 gpu 1개를 사용하거나  
-tpu를 사용하는게 좋을 것으로 보입니다. (가성비도 더 좋습니다)
+tpu를 사용하는게 좋아 보입니다. (가성비도 더 좋습니다)
 
 예를 들면 P100 X 4 -> V100 1개  
 혹은 V100 8개 멀티 cluster -> v2-32 Cloud TPU v2 Pod 1개
