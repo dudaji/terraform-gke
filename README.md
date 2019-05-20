@@ -235,8 +235,6 @@ gke-test-cpu-1-131599f3-8p2l   Ready    <none>   57m   v1.12.7-gke.10
 
 ### Clean up
 
-terraform destroy
-
 ```
 $ terraform destroy
 
