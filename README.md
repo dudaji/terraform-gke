@@ -6,7 +6,7 @@ Google cloud platform에서 Scaleable한 gpu cluster를 만드는 Terraform 예�
 
 ## 좋은 점
 
-Request에 따라서 Scale up 되고 사용되지 않을 경우 Scale down 된다.
+**필요한 만큼만 gpu를 사용하기 쉽다.**
 
 2019년 5월 기준
 
