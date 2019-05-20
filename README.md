@@ -257,7 +257,7 @@ Do you really want to destroy all resources?
    하지만 최소 g1-small 정도의 node 1개는 떠 있어야 api server에 요청이 왔을 때  
    management 기능이 작동합니다. 그렇지 않으면 Unscheduable 한 상태로 계속 머물러 있습니다.
 
-2. 메모리가 부족할 경우 OOM이 발생합니다. 그래서 메모리를 넉넉하게 1코어당 5G까지 주었습니다.
+2. 메모리가 부족할 경우 OOM이 발생합니다. gpu node에 메모리를 넉넉하게 주어야 합니다.
 
 ## Limitation
 
@@ -273,7 +273,7 @@ limit:
 예를 들어 gpu 4개 짜리 작업이 끝나고 Node가 Scale down되기를 기다리고 있을때  
 gpu 1개를 사용하는 요청이 들어오면 gpu 4개 짜리 Node에 Assign 됩니다.
 
-gpu node 에는 taints가 아래와 같이 적용되어 있기 때문입니다.
+gpu node 에는 taints가 아래와 같이 적용되어 있습니다.
 
 ```
 NO_SCHEDULE	nvidia.com/gpu=present
