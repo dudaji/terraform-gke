@@ -1,18 +1,16 @@
-# GKE GPU AUTOSCALE TERRAFORM
+# GKE GPU AUTO SCALE TERRAFORM
 
-## 설명
-
-Google cloud platform에서 Scaleable한 gpu cluster를 만드는 Terraform 예제입니다.
+GKE scaleable gpu cluster Terraform 예제
 
 ## 좋은 점
 
-**필요한 만큼만 gpu를 사용하기 쉽다.**
+1. 필요한 만큼만 gpu를 사용하기 쉽다.
+2. 장비를 구입하지 않아도 필요한 만큼만 사용할 수 있음.
 
 2019년 5월 기준
 
-V100 구매시 $10,000 이상입니다.  
-GCP에서 V100 GPU 시간당 가격은 $2.48 선점형일 경우 \$0.74 입니다.  
-장비를 구입하지 않아도 필요한 만큼만 사용할 수 있습니다.
+V100 가격: $10,000 이상  
+GCP V100 GPU 시간당 가격: $2.48 선점형일 경우 \$0.74 입니다.
 
 ## 주의
 
@@ -25,7 +23,7 @@ git clone https://github.com/dudaji/gke-gpu-auto-scale.git
 cd gke-gpu-auto-scale
 ```
 
-key.json credential file이 필요합니다.
+key.json credential file 필요
 
 test/provider.tf
 
@@ -41,26 +39,7 @@ provider "google" {
 }
 ```
 
-test directory에서 terraform plan을 해보시면 생성되는 resource를 보실 수 있습니다.
-
-```
-$ cd test
-$ terraform plan
-...
-      node_config.0.oauth_scopes.172152165:            "https://www.googleapis.com/auth/logging.write"
-      node_config.0.preemptible:                       "true"
-      node_config.0.service_account:                   <computed>
-      node_count:                                      "0"
-      project:                                         <computed>
-      region:                                          <computed>
-      version:                                         <computed>
-      zone:                                            <computed>
-
-
-Plan: 9 to add, 0 to change, 0 to destroy.
-```
-
-gke cluster를 만들겠습니다. (\$PROJECT_NAME을 변경해주세요)
+gke cluster를 만들겠습니다. (\$PROJECT_NAME을 변경 필요)
 
 ```
 $ terraform apply -var 'project=$PROJECT_NAME'
@@ -73,7 +52,7 @@ Do you want to perform these actions?
   Enter a value:
 ```
 
-생성 중인 화면입니다. 10분 소요됩니다.
+10분 소요됩니다.
 
 ```
 module.gke.google_container_cluster.ml_cluster: Creating...
@@ -95,7 +74,8 @@ module.gke.google_container_cluster.ml_cluster: Creating...
   master_auth.0.client_certificate:     "" => "<computed>"
 ```
 
-생성되고 나면 gcp 콘솔이 보입니다.
+생후 후 gcp 콘솔에서 확인 가능
+
 ![gke-cluster](https://www.arangodb.com/docs/3.4/images/gke-clusters.png)
 
 ### nvidia driver install Daemonset
@@ -111,7 +91,7 @@ kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/container
 
 ### Gpu Pod Test
 
-현재 node 상태입니다.
+현재 node 상태
 
 ```
 $ kubectl get nodes
@@ -141,7 +121,7 @@ spec:
           nvidia.com/gpu: 1
 ```
 
-상태를 보면 gpu 노드가 없어 Trigger scale up 합니다.
+gpu 노드가 없어 Trigger scale up 합니다.
 
 ```
 $ kubectl describe pod
@@ -154,7 +134,7 @@ Events:
   Normal   TriggeredScaleUp  12s                cluster-autoscaler  pod triggered scale-up: [{https://content.googleapis.com/compute/v1/projects/my-project/zones/us-central1-c/instanceGroups/gke-test-nvidia-tesla-k80-1-dae0ecbd-jkzd 0->1 (max: 8)}]
 ```
 
-그리고 다시 노드들을 조회하면 gpu 노드가 생성된 걸 볼 수 있습니다.
+그리고 다시 노드를 조회하면 gpu 노드가 생성되어 있습니다.
 
 ```
 $ kubectl get nodes
@@ -163,7 +143,7 @@ gke-test-cpu-1-131599f3-8p2l                Ready    <none>   17m   v1.12.7-gke.
 gke-test-nvidia-tesla-k80-1-dae0ecbd-jkzd   Ready    <none>   19s   v1.12.7-gke.10
 ```
 
-Node가 추가되면 아까 생성했던 nvidia-driver install daemonset이 nvidia driver를 인스톨합니다.
+Node가 추가되면 nvidia driver가 Install 됩니다.
 
 ```
 kubectl get pods -n kube-system
@@ -198,7 +178,7 @@ Mon May 20 06:33:32 2019
 [INFO    2019-05-20 06:33:32 UTC] Updating host's ld cache
 ```
 
-그리고 Pod은 정상적으로 Assign되고 로그를 살펴보면 아래와 같습니다.
+이후에 Pod은 정상적으로 Assign되고 로그를 살펴보면 아래와 같습니다.
 
 ```
 $ kubectl logs gpu-pod
@@ -221,7 +201,7 @@ Mon May 20 06:53:23 2019
 +-----------------------------------------------------------------------------+
 ```
 
-gpu를 사용하는 pod을 삭제하고 5분 정도 기다리면 gpu node가 사라집니다.
+gpu를 사용하는 pod을 삭제하고 5분 정도 기다리면 gpu node가 사라집니다. (scale down)
 
 ```
 ❯ kubectl delete pod --all
@@ -248,9 +228,9 @@ Do you really want to destroy all resources?
   Enter a value:
 ```
 
-혹은 gcp console에서 삭제하셔도 됩니다.
+gcp console에서 삭제하셔도 됩니다.
 
-## 시행 착오
+## Tip
 
 1. master 의 경우에는 GCP에서 제공해줍니다. (GCP free tier에 포함되어 있음)  
    하지만 최소 g1-small 정도의 node 1개는 떠 있어야 api server에 요청이 왔을 때  
@@ -260,25 +240,20 @@ Do you really want to destroy all resources?
 
 ## Limitation
 
-Node 가 Scale up 혹은 down되는데 5분 정도 소요됩니다.
+Scale up, down되는데 5분 정도 소요됩니다.
 
 그 사이에 스케쥴이 맞물리면 Fragment가 발생할 가능성이 있습니다.
 
-```
-limit:
-  nvidia.com/gpu: 1
-```
-
 예를 들어 gpu 4개 짜리 작업이 끝나고 Node가 Scale down되기를 기다리고 있을때  
 gpu 1개를 사용하는 요청이 들어오면 gpu 4개 짜리 Node에 Assign 됩니다.
+
+실제로는 gpu 1개를 사용하더라도 node에는 gpu가 4개 있으므로 3개는 놀게 됩니다.
 
 gpu node 에는 taints가 아래와 같이 적용되어 있습니다.
 
 ```
 NO_SCHEDULE	nvidia.com/gpu=present
 ```
-
-실제로는 gpu 1개를 사용하더라도 node에는 gpu가 4개 있으므로 3개는 놀게 됩니다.
 
 그래서 distributed learning 보다는 더 좋은 gpu 1개를 사용하거나  
 tpu를 사용하는게 좋아 보입니다. (가성비도 더 좋습니다)
