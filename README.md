@@ -250,7 +250,7 @@ gpu node 에는 taints가 아래와 같이 적용되어 있습니다.
 NO_SCHEDULE	nvidia.com/gpu=present
 ```
 
-그래서 distributed learning 보다는 더 좋은 gpu 1개를 사용하거나  
+그래서 gpu distributed learning 보다는 더 좋은 gpu 1개를 사용하거나  
 tpu를 사용하는게 좋아 보입니다. (가성비도 더 좋습니다)
 
 예를 들면 P100 X 4 -> V100 1개  
