@@ -87,7 +87,7 @@ https://cloud.google.com/kubernetes-engine/docs/how-to/gpus#installing_drivers
 kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/nvidia-driver-installer/cos/daemonset-preloaded.yaml
 ```
 
-### Gpu Pod Test
+### Gpu pod test
 
 node 상태
 
