@@ -80,10 +80,8 @@ module.gke.google_container_cluster.ml_cluster: Creating...
 
 ### nvidia driver install Daemonset
 
-Cluster가 생성된 후에는
-
-https://cloud.google.com/kubernetes-engine/docs/how-to/gpus#installing_drivers  
-에 따라서 nvidia drive를 install 해주는 daemonset을 생성합니다.
+Cluster가 생성된 후에는 nvidia driver installer daemonset을 생성합니다.  
+https://cloud.google.com/kubernetes-engine/docs/how-to/gpus#installing_drivers
 
 ```
 kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/container-engine-accelerators/stable/nvidia-driver-installer/cos/daemonset-preloaded.yaml
@@ -91,15 +89,12 @@ kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/container
 
 ### Gpu Pod Test
 
-현재 node 상태
+node 상태
 
 ```
 $ kubectl get nodes
 NAME                           STATUS   ROLES    AGE   VERSION
 gke-test-cpu-1-131599f3-8p2l   Ready    <none>   16m   v1.12.7-gke.10
-|   1  Tesla K80           Off  | 00000000:00:05.0 Off |                    0 |
-| N/A   34C    P0    66W / 149W |      0MiB / 11441MiB |    100%      Default |
-+-------------------------------+----------------------+----------------------+
 ```
 
 아래 pod 을 생성합니다.
