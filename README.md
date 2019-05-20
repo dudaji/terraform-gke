@@ -2,8 +2,7 @@
 
 ## 설명
 
-Google cloud platform에서 Scaleable한 gpu cluster를 만드는  
-Terraform 예제입니다.
+Google cloud platform에서 Scaleable한 gpu cluster를 만드는 Terraform 예제입니다.
 
 ## 좋은 점
 
