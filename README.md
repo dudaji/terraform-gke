@@ -73,8 +73,7 @@ Do you want to perform these actions?
   Enter a value:
 ```
 
-생성 중인 화면입니다.  
-10분 소요됩니다.
+생성 중인 화면입니다. 10분 소요됩니다.
 
 ```
 module.gke.google_container_cluster.ml_cluster: Creating...
@@ -118,6 +117,9 @@ kubectl apply -f https://raw.githubusercontent.com/GoogleCloudPlatform/container
 $ kubectl get nodes
 NAME                           STATUS   ROLES    AGE   VERSION
 gke-test-cpu-1-131599f3-8p2l   Ready    <none>   16m   v1.12.7-gke.10
+|   1  Tesla K80           Off  | 00000000:00:05.0 Off |                    0 |
+| N/A   34C    P0    66W / 149W |      0MiB / 11441MiB |    100%      Default |
++-------------------------------+----------------------+----------------------+
 ```
 
 아래 pod 을 생성합니다.
