@@ -27,8 +27,7 @@ git clone https://github.com/dudaji/gke-gpu-auto-scale.git
 cd gke-gpu-auto-scale
 ```
 
-폴더 아래에 credential key를 두시면 됩니다 key.json 이름으로
-terraform 에서 사용하는 부분은 아래입니다.
+key.json credential file이 필요합니다.
 
 test/provider.tf
 
@@ -63,9 +62,7 @@ $ terraform plan
 Plan: 9 to add, 0 to change, 0 to destroy.
 ```
 
-만들어 보려면 terraform apply -var 'project=\$PROJECT_NAME'을 하고  
-(\$PROJECT_NAME을 변경해주세요)
-yes를 입력해주면 됩니다.
+gke cluster를 만들겠습니다. (\$PROJECT_NAME을 변경해주세요)
 
 ```
 $ terraform apply -var 'project=$PROJECT_NAME'
@@ -78,8 +75,8 @@ Do you want to perform these actions?
   Enter a value:
 ```
 
-생성 중인 화면입니다. 보통 10분 정도 걸립니다.  
-auto scale instance group을 만드는데 시간이 오래 걸립니다.
+생성 중인 화면입니다.  
+10분 소요됩니다.
 
 ```
 module.gke.google_container_cluster.ml_cluster: Creating...
@@ -101,7 +98,7 @@ module.gke.google_container_cluster.ml_cluster: Creating...
   master_auth.0.client_certificate:     "" => "<computed>"
 ```
 
-생성되고 나면 gcp 콘솔에서 보이십니다.
+생성되고 나면 gcp 콘솔이 보입니다.
 ![gke-cluster](https://www.arangodb.com/docs/3.4/images/gke-clusters.png)
 
 ### nvidia driver install Daemonset
@@ -125,7 +122,7 @@ NAME                           STATUS   ROLES    AGE   VERSION
 gke-test-cpu-1-131599f3-8p2l   Ready    <none>   16m   v1.12.7-gke.10
 ```
 
-아래 pod 을 생성하면
+아래 pod 을 생성합니다.
 
 ```
 apiVersion: v1
@@ -144,7 +141,7 @@ spec:
           nvidia.com/gpu: 1
 ```
 
-상태를 보면 Available Node가 없어서 Schedule이 되지 못하고 gpu node scale up을 trigger 합니다.
+상태를 보면 gpu 노드가 없어 Trigger scale up 합니다.
 
 ```
 $ kubectl describe pod
@@ -227,7 +224,7 @@ Mon May 20 06:53:23 2019
 +-----------------------------------------------------------------------------+
 ```
 
-gpu를 사용하는 pod을 삭제하고 기다리면 gpu node가 사라집니다.
+gpu를 사용하는 pod을 삭제하고 5분 정도 기다리면 gpu node가 사라집니다.
 
 ```
 ❯ kubectl delete pod --all
@@ -255,8 +252,6 @@ Do you really want to destroy all resources?
 
   Enter a value:
 ```
-
-yes를 하고 삭제합니다.
 
 혹은 gcp console에서 삭제하셔도 됩니다.
 
