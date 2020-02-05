@@ -19,8 +19,8 @@ GCP V100 GPU 시간당 가격: $2.48 선점형일 경우 \$0.74 입니다.
 ## Getting Started
 
 ```
-git clone https://github.com/dudaji/gke-gpu-auto-scale.git
-cd gke-gpu-auto-scale
+git clone https://github.com/dudaji/terraform-gke.git
+cd terraform-gke
 ```
 
 key.json credential file 필요
