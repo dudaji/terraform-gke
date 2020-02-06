@@ -5,5 +5,5 @@ variable "project" {
 provider "google" {
   credentials = "${file("../key.json")}"
   project     = "${var.project}"
-  zone        = "us-central1-c"
+  zone        = "asia-northeast-3"
 }

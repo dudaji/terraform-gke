@@ -4,7 +4,7 @@ resource "google_container_node_pool" "cpu" {
   count      = 4
   name       = "cpu-${pow(2, count.index)}"
   cluster    = "${var.cluster}"
-  node_count = "${(count.index == 0 ? 1 : 0)}"
+  node_count = 0
 
   autoscaling {
     min_node_count = 0
