@@ -1,0 +1,12 @@
+name: validation
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    container: hashicorp/terraform:0.12.20
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: terraform validate
