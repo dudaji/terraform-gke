@@ -1,9 +1,7 @@
-variable "project" {
-  default = "project-name"
-}
+variable "project" {}
 
 provider "google" {
   credentials = "${file("../key.json")}"
   project     = "${var.project}"
-  zone        = "asia-northeast-3"
+  zone        = "us-central1-a"
 }

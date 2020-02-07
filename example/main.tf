@@ -5,7 +5,6 @@ resource "google_container_cluster" "ml_cluster" {
   min_master_version       = "latest"
   monitoring_service       = "none"
   logging_service          = "none"
-  location                 = "asia-northeast-3"
 
   master_auth {
     username = ""
