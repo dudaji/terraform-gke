@@ -30,3 +30,5 @@ override.tf.json
 
 ## hate
 *.json
+test.tf
+provider.tf
