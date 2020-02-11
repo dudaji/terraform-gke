@@ -4,7 +4,7 @@ on:
   - pull_request
 
 jobs:
-  test:
+  validation:
     container: hashicorp/terraform:0.12.20
     runs-on: ubuntu-latest
     steps:
