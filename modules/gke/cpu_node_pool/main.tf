@@ -13,6 +13,7 @@ variable "preemtible" {
 }
 
 resource "google_container_node_pool" "g1-samll" {
+  count      = "${var.node_pool_count == 0 ? 0 : 1}"
   name       = "g1-small"
   cluster    = "${var.cluster}"
   node_count = 0
