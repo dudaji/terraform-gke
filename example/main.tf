@@ -1,3 +1,13 @@
+variable "project" {}
+
+provider "google" {
+  # credentials = file("../key.json")
+  project = var.project
+}
+
+locals {
+  location = "us-central1-a"
+}
 resource "google_container_cluster" "ml_cluster" {
   name                     = "dudaji-terraform-gke-example-cluster"
   remove_default_node_pool = true
@@ -5,6 +15,7 @@ resource "google_container_cluster" "ml_cluster" {
   min_master_version       = "latest"
   monitoring_service       = "none"
   logging_service          = "none"
+  location                 = local.location
 
   master_auth {
     username = ""
@@ -12,31 +23,22 @@ resource "google_container_cluster" "ml_cluster" {
   }
 }
 
-resource "google_container_node_pool" "g1-small" {
-  name       = "g1-small"
-  cluster    = "${google_container_cluster.ml_cluster.name}"
-  node_count = 1
-
-  autoscaling {
-    min_node_count = 0
-    max_node_count = 8
-  }
-
-  node_config {
-    preemptible  = true
-    disk_size_gb = 10
-    machine_type = "g1-small"
-    metadata     = "${map("disable-legacy-endpoints", "true")}"
-
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
-  }
+module "cpu-pool" {
+  source       = "../gke_node_pool"
+  cluster      = "${google_container_cluster.ml_cluster.name}"
+  location     = local.location
+  node_count   = 1
+  machine_type = "g1-small"
 }
 
-module "gpu_pool_k80" {
-  source   = "../modules/gke/gpu_node_pool"
-  cluster  = "${google_container_cluster.ml_cluster.name}"
-  gpu_type = "nvidia-tesla-k80"
+module "gpu-pool" {
+  source             = "../gke_node_pool"
+  cluster            = "${google_container_cluster.ml_cluster.name}"
+  location           = local.location
+  node_pool_count    = 2
+  machine_type       = "n1"
+  cpu_start_exponent = 2
+  memory_coefficient = 1024 * 16
+  gpu_type           = "nvidia-tesla-t4"
 }
+
