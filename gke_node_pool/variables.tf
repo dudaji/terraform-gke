@@ -7,7 +7,7 @@ variable "gpu_type" {
   default = ""
 }
 variable "preemtible" {
-  default = false
+  default = true
 }
 variable "disk_size_gb" {
   default = 15
