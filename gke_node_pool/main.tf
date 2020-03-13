@@ -1,5 +1,5 @@
 resource "google_container_node_pool" "custom-node-pool" {
-  name       = local.name[count.index]
+  name       = substr(local.name[count.index], 0, 40)
   count      = local.node_pool_count
   cluster    = var.cluster
   location   = var.location
