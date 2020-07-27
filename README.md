@@ -89,3 +89,10 @@ will create
             },
         ]
 ```
+
+## Module versioning
+
+[select versioning](https://www.terraform.io/docs/modules/sources.html#selecting-a-revision)
+```
+source = "git::https://github.com/dudaji/terraform-gke//gke_node_pool?ref=v0.1.0"
+```
