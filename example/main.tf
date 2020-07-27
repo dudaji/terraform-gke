@@ -41,4 +41,3 @@ module "gpu-pool" {
   memory_coefficient = 1024 * 16
   gpu_type           = "nvidia-tesla-t4"
 }
-
