@@ -11,6 +11,7 @@ resource "google_container_node_pool" "custom-node-pool" {
   }
 
   node_config {
+    image_type   = var.image_type
     preemptible  = var.preemtible
     disk_size_gb = var.disk_size_gb
     machine_type = local.machine_type[count.index]

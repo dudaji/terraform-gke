@@ -3,6 +3,9 @@ variable "machine_type" {
 }
 variable "cluster" {}
 variable "location" {}
+variable "image_type" {
+  default = "cos"
+}
 variable "gpu_type" {
   default = ""
 }
