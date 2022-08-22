@@ -16,13 +16,6 @@ resource "google_container_node_pool" "custom-node-pool" {
     disk_size_gb = var.disk_size_gb
     machine_type = local.machine_type[count.index]
 
-    metadata = map("disable-legacy-endpoints", "true")
-
-    oauth_scopes = [
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring",
-    ]
-
     guest_accelerator {
       type  = var.gpu_type
       count = local.gpu_count[count.index]
