@@ -4,7 +4,7 @@ variable "machine_type" {
 variable "cluster" {}
 variable "location" {}
 variable "image_type" {
-  default = "cos"
+  default = "cos_containerd"
 }
 variable "gpu_type" {
   default = ""
@@ -18,14 +18,14 @@ variable "disk_size_gb" {
 variable "max_node_count" {
   default = 4
 }
-variable node_count {
+variable "node_count" {
   default = 0
 }
 variable "node_pool_count" {
   default = 1
 }
 
-variable cpu_start_exponent {
+variable "cpu_start_exponent" {
   default = 0
 }
 variable "memory_coefficient" {
