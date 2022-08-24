@@ -1,7 +1,7 @@
 locals {
   gpu                     = length(var.gpu_type) > 0
   predifined_macine_type  = length(var.machine_type) > 2
-  name_preemptible_prefix = var.preemtible ? "pr-" : ""
+  name_preemptible_prefix = var.preemptible ? "pr-" : ""
   node_pool_count         = local.predifined_macine_type ? min(1, var.node_pool_count) : var.node_pool_count
   cpu                     = [for i in range(local.node_pool_count) : pow(2, var.cpu_start_exponent + (var.machine_type == "e2" ? max(1, i) : i))]
   memory                  = [for i in range(local.node_pool_count) : pow(2, i + var.memory_start_exponent) * var.memory_coefficient]

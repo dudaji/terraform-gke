@@ -9,7 +9,7 @@ variable "image_type" {
 variable "gpu_type" {
   default = ""
 }
-variable "preemtible" {
+variable "preemptible" {
   default = true
 }
 variable "disk_size_gb" {
