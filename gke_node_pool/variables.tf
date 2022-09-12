@@ -15,6 +15,9 @@ variable "preemptible" {
 variable "disk_size_gb" {
   default = 15
 }
+variable "min_node_count" {
+  default = 0
+}
 variable "max_node_count" {
   default = 4
 }
