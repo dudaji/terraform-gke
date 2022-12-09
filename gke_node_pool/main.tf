@@ -1,9 +1,10 @@
 resource "google_container_node_pool" "custom-node-pool" {
-  name       = substr(local.name[count.index], 0, 40)
-  count      = local.node_pool_count
-  cluster    = var.cluster
-  location   = var.location
-  node_count = var.node_count
+  name           = substr(local.name[count.index], 0, 40)
+  count          = local.node_pool_count
+  cluster        = var.cluster
+  location       = var.location
+  node_locations = var.node_locations
+  node_count     = var.node_count
 
   autoscaling {
     min_node_count = var.min_node_count
