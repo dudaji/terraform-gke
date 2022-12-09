@@ -3,7 +3,10 @@ variable "machine_type" {
 }
 variable "cluster" {}
 variable "location" {}
-variable "node_locations" {}
+variable "node_locations" {
+  type    = list(string)
+  default = null
+}
 variable "image_type" {
   default = "cos_containerd"
 }
