@@ -31,7 +31,6 @@ variable "node_count" {
 variable "node_pool_count" {
   default = 1
 }
-
 variable "cpu_start_exponent" {
   default = 0
 }
@@ -40,4 +39,7 @@ variable "memory_coefficient" {
 }
 variable "memory_start_exponent" {
   default = 0
+}
+variable "auto_upgrade" {
+  default = false
 }
