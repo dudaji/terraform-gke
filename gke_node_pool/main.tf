@@ -31,4 +31,9 @@ resource "google_container_node_pool" "custom-node-pool" {
       count = local.gpu_count[count.index]
     }
   }
+  timeouts {
+    create = "1h30m"
+    update = "2h"
+    delete = "20m"
+  }
 }
