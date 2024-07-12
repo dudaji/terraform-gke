@@ -30,6 +30,10 @@ resource "google_container_node_pool" "custom-node-pool" {
       type  = var.gpu_type
       count = local.gpu_count[count.index]
     }
+
+    linux_node_config {
+      sysctls = var.sysctls
+    }
   }
   timeouts {
     create = "1h30m"

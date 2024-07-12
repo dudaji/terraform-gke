@@ -41,3 +41,10 @@ variable "memory_coefficient" {
 variable "memory_start_exponent" {
   default = 0
 }
+
+variable "sysctls" {
+  type = map(string)
+  default = {
+    "fs.file-max" = "65535"
+  }
+}
